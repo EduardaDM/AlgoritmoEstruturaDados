@@ -1,6 +1,6 @@
 ## Prova 2 Algoritmo e Estrutura de Dados
 
-> 3º Semestre 
+3º Semestre 
 
 Matéria: Algoritmo e Estrutura de Dados, do curso de Ciência da Computação - FURB
 
