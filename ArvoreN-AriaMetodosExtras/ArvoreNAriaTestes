@@ -1,0 +1,73 @@
+public class TesteMetodosArvore {
+    public static void main(String[] args) {
+        // Criando manualmente a árvore conforme necessário
+        // Estrutura esperada: 
+        // <1<2<5><6>><3><4>>
+
+        NoArvore<Integer> no5 = new NoArvore<>(5);
+        NoArvore<Integer> no6 = new NoArvore<>(6);
+        NoArvore<Integer> no2 = new NoArvore<>(2);
+        no2.inserirFilhoNoFinal(no5);
+        no2.inserirFilhoNoFinal(no6);
+
+        NoArvore<Integer> no3 = new NoArvore<>(3);
+        NoArvore<Integer> no4 = new NoArvore<>(4);
+
+        NoArvore<Integer> raiz = new NoArvore<>(1);
+        raiz.inserirFilhoNoFinal(no2);
+        raiz.inserirFilhoNoFinal(no3);
+        raiz.inserirFilhoNoFinal(no4);
+
+        Arvore<Integer> arvore = new Arvore<>();
+        arvore.setRaiz(raiz);
+
+        System.out.println("==== TESTES DE MÉTODOS EXISTENTES ====");
+
+        //  Teste 1: toString()
+        System.out.println("toString():");
+        System.out.println(arvore); // Esperado: <1<2<5><6>><3><4>>
+
+        // Teste 2: pertence()
+        System.out.println("pertence(6): " + arvore.pertence(6)); // true
+        System.out.println("pertence(99): " + arvore.pertence(99)); // false
+
+        // Teste 3: contarNos()
+        System.out.println("contarNos(): " + arvore.contarNos()); // Esperado: 6
+
+        // Teste 4: contarFolhas()
+        System.out.println("contarFolhas(): " + arvore.contarFolhas()); // Esperado: 3 (5, 6, 3 e 4)
+
+        // Teste 5: imprimirHierarquia()
+        System.out.println("imprimirHierarquia():");
+        arvore.imprimirHierarquia();
+
+        // Teste 6: excluirNo()
+        System.out.println("excluirNo(3): " + arvore.excluirNo(3)); // true
+        System.out.println("Nova representação textual após exclusão:");
+        System.out.println(arvore); // <1<2<5><6>><4>>
+
+        System.out.println("\n==== TESTES DOS NOVOS MÉTODOS ====");
+
+        // Teste 7: inserirFilhoNoComeco()
+        NoArvore<Integer> no100 = new NoArvore<>(100);
+        raiz.inserirFilhoNoComeco(no100);
+        System.out.println("Inseriu 100 no começo. Ordem dos filhos da raiz:");
+        NoArvore<Integer> f = raiz.getPrimeiro();
+        while (f != null) {
+            System.out.print(f.getInfo() + " ");
+            f = f.getProximo();
+        }
+        System.out.println();
+
+        // Teste 8: inserirFilhoNoFinal()
+        NoArvore<Integer> no200 = new NoArvore<>(200);
+        raiz.inserirFilhoNoFinal(no200);
+        System.out.println("Inseriu 200 no final. Ordem dos filhos da raiz:");
+        f = raiz.getPrimeiro();
+        while (f != null) {
+            System.out.print(f.getInfo() + " ");
+            f = f.getProximo();
+        }
+        System.out.println();
+    }
+}
