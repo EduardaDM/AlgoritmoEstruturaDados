@@ -1,0 +1,92 @@
+package ArvoreBinaria;
+public class ArvoreBinaria<T> {
+
+    private NoArvoreBinaria<T> raiz;
+
+    public ArvoreBinaria() {
+        this.raiz = null;
+    }
+
+    public void setRaiz(NoArvoreBinaria<T> raiz) {
+        this.raiz = raiz;
+    }
+
+    // ESTA VAZIA
+    public boolean estaVazia() {
+        return raiz == null;
+    }
+
+    // TO STRING PRE ORDEM -
+    public String arvorePreOrdem() {
+        return arvorePreOrdem(raiz);
+    }
+
+    private String arvorePreOrdem(NoArvoreBinaria<T> no) {
+        if (no == null) {
+            return "<>";
+        }
+        return "<" + no.getInfo() + arvorePreOrdem(no.getEsquerda()) +
+                arvorePreOrdem(no.getDireita()) + ">";
+    }
+
+    // TO STRING POS ORDEM -
+    public String arvorePosOrdem() {
+        return arvorePosOrdem(raiz);
+    }
+
+    private String arvorePosOrdem(NoArvoreBinaria<T> no) {
+        if (no == null) {
+            return "<>";
+        }
+        return "<" + arvorePosOrdem(no.getEsquerda()) +
+                arvorePosOrdem(no.getDireita()) + no.getInfo() + ">";
+    }
+
+    // TO STRING EM ORDEM -
+    public String arvoreEmOrdem() {
+        return arvoreEmOrdem(raiz);
+    }
+
+    private String arvoreEmOrdem(NoArvoreBinaria<T> no) {
+        if (no == null) {
+            return "<>";
+        }
+        return "<" + arvoreEmOrdem(no.getEsquerda()) + no.getInfo() +
+                arvoreEmOrdem(no.getDireita()) + ">";
+    }
+
+    // PERTENCE
+    public boolean pertence(T info) {
+        return pertence(raiz, info);
+    }
+
+    private boolean pertence(NoArvoreBinaria<T> no, T info) {
+        if (no == null) {
+            return false;
+        }
+
+        if (no.getInfo().equals(info)) {
+            return true;
+        }
+
+        return pertence(no.getEsquerda(), info) || pertence(no.getDireita(), info);
+    }
+
+    // CONTAR NOS
+    public int contarNos() {
+        return contarNos(raiz);
+    }
+
+    private int contarNos(NoArvoreBinaria<T> no) {
+        if (no == null) {
+            return 0;
+        }
+        return 1 + contarNos(no.getEsquerda()) + contarNos(no.getDireita());
+    }
+
+    @Override
+    public String toString() {
+        return arvorePreOrdem();
+    }
+
+}
