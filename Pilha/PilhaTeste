@@ -1,0 +1,99 @@
+import static org.junit.Assert.fail;
+import org.junit.Assert;
+import org.junit.*;
+
+import ExeptionsPersonalizadas.PilhaCheiaException;
+import ExeptionsPersonalizadas.PilhaVaziaException;
+
+public class PilhaTeste {
+
+    public void teste1() {
+        PilhaVetor<Integer> p = new PilhaVetor<>(3);
+        Assert.assertEquals(true, p.estaVazia());
+    }
+
+    public void teste2() {
+        PilhaVetor<Integer> p = new PilhaVetor<>(5);
+        p.push(10); // add item
+
+        Assert.assertEquals(false, p.estaVazia());
+    }
+
+    public void teste3() {
+        PilhaVetor<Integer> p = new PilhaVetor<>(10);
+        p.push(10);
+        p.push(20);
+        p.push(30);
+
+        // Assert.assertEquals(30, p.pop());
+        // Assert.assertEquals(20, p.pop());
+        // Assert.assertEquals(10, p.pop());
+
+        Assert.assertEquals(Integer.valueOf(30), p.pop());
+        Assert.assertEquals(Integer.valueOf(20), p.pop());
+        Assert.assertEquals(Integer.valueOf(10), p.pop());
+
+        // Assert.assertEquals(true, p.estaVazia());
+        Assert.assertTrue(p.estaVazia());
+    }
+
+    // verificar se esse teste esta certo
+    public void teste4() {
+        PilhaVetor<Integer> p = new PilhaVetor<>(3);
+
+        PilhaCheiaException exception = Assert.assertThrows(PilhaCheiaException.class, () -> {
+            p.push(10);
+            p.push(20);
+            p.push(30);
+            p.push(40);
+        });
+
+        // Verifica se a mensagem da exceção é a esperada
+        Assert.assertEquals("Capacidade esgotada da pilha", exception.getMessage());
+    }
+
+    public void teste5(){
+        PilhaVetor<Integer> p = new PilhaVetor<>(3);
+
+        PilhaVaziaException exception = Assert.assertThrows(PilhaVaziaException.class, () -> {
+            p.pop(); //o que vai causar o erro
+        });
+
+        // Verifica se a mensagem da exceção é a esperada
+        Assert.assertEquals("Piha está vazia", exception.getMessage());
+    }
+
+    public void teste6(){
+        PilhaVetor<Integer> p = new PilhaVetor<>(5);
+        p.push(10);
+        p.push(20);
+        p.push(30);
+        //Assert.assertEquals(30, p.peek());
+        //Assert.assertEquals(30, p.pop());
+    }
+
+    public void teste7(){
+        PilhaVetor<Integer> p = new PilhaVetor<>(5);
+        p.push(10);
+        p.push(20);
+        p.push(30);
+        p.liberar();
+        Assert.assertTrue(p.estaVazia());
+    }
+
+    public void teste8(){
+        PilhaVetor<Integer> p = new PilhaVetor<>(5);
+        p.push(10);
+        p.push(20);
+        p.push(30);
+        Assert.assertEquals(p.toString(), "30,20,10");
+
+        PilhaVetor<Integer> p2 = new PilhaVetor<>(5);
+        p.push(40);
+        p.push(50);
+        
+        p.concatenar(p2);
+        Assert.assertEquals(p.toString(), "50,40,30,20,10");
+    }
+
+}
