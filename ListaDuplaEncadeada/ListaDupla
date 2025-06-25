@@ -1,0 +1,133 @@
+import java.util.Objects;
+
+public class ListaDupla<T> {
+    
+    private NoListaDupla<T> primeiro;//cabeca da lisa(primeiro no)
+    private NoListaDupla<T> ultimo; //cauda da lista(ultimo)
+    
+    public ListaDupla(){
+        this.primeiro = null;
+        this.ultimo = null;
+    }
+    public NoListaDupla<T> getPrimeiro(){
+        return primeiro;
+    }
+    public void inserir(T valor){
+        //cria um novo no 
+        NoListaDupla<T> novo = new NoListaDupla<>();
+        novo.setInfo(valor);
+        novo.setInicio(primeiro);
+        
+        //se a lista nao estiver vazia atualiza o anterior do primeiro
+        if(primeiro != null) {
+            primeiro.setFim(novo);
+        }
+        else{
+            ultimo = novo;//se a lisat estiver vazia, essse novo nó tambem é o ultimo no
+        }
+        primeiro = novo;//sempre atualiza o ponteiro primeiro
+    }
+    public NoListaDupla<T> buscar(T valor) {
+        NoListaDupla<T> atual = primeiro;
+
+        while (atual != null) {
+            if (atual.getInfo().equals(valor)) {
+                return atual; // Se encontrar o valor, retorna o nó
+            }
+            atual = atual.getInicio(); // Avança para o próximo nó
+        }
+        return null; // Se não encontrar, retorna nulo
+    }
+    
+    public NoListaDupla<T> clonar() {
+        if (this.primeiro == null) {
+            return null; 
+        }
+
+            NoListaDupla<T> novoPrimeiro = new NoListaDupla<>();
+            novoPrimeiro.setInfo(this.primeiro.getInfo());
+
+            NoListaDupla<T> atualOriginal = this.primeiro;
+            NoListaDupla<T> atualCopia = novoPrimeiro;
+
+        while (atualOriginal.getInicio() != null) {
+                NoListaDupla<T> novoNo = new NoListaDupla<>();
+                novoNo.setInfo(atualOriginal.getInicio().getInfo());
+
+                // Conecta os nós na lista clonada
+                atualOriginal.getInicio(novoNo);
+                novoNo.setFim(atualCopia);
+
+                // Avança para os próximos nós
+                atualOriginal = atualOriginal.getInicio();
+                atualCopia = atualCopia.getFim();
+        }
+
+        return novoPrimeiro; // Retorna o início da lista clonada
+    }
+    
+    public void retirar(T valor){
+        NoListaDupla<T> atual = primeiro;
+        
+        while(atual != null){
+            if(Objects.equals(atual.getInfo(), valor)){
+                if(atual.getFim()!= null){//ajusta o anterior
+                    atual.getFim().setInicio(atual.getInicio());
+                }
+                else { //no é o primeiro
+                    primeiro = atual.getInicio();
+                }
+                if(atual.getInicio()!= null){//ajusta o proximo
+                    atual.getInicio().setFim(atual.getFim());
+                }
+                else {
+                    ultimo = atual.getFim();
+                }
+                return;
+            }
+            atual = atual.getFim();//avanca para o proximo
+        }
+    }
+    public void exibirOrdemInversa(){
+        StringBuilder sb = new StringBuilder();
+        NoListaDupla<T> atual = ultimo;//comeca no ultimo no
+        
+        while(atual != null){
+            sb.append(atual.getInfo());//adicionao valor do no atual
+            if(atual.getFim()!= null){
+                sb.append(", ");
+            }
+            atual = atual.getFim();
+        }
+        System.out.println(sb.toString());//imprime a string de tras para frente
+    }
+    public void liberar(){
+        NoListaDupla<T> atual = primeiro;
+        
+        while(atual != null){
+            NoListaDupla<T> proximo = atual.getInicio();
+            atual.setFim(null);
+            atual.setInicio(null);
+            atual = proximo;
+        }
+        //depois de limpar os elementos, zera os ponteiros da lista
+        primeiro = null;
+        ultimo = null;
+    }
+    public String toString() {
+        StringBuilder sb = new StringBuilder(); // Usado para montar uma string com os dados da lista
+        NoListaDupla<T> atual = primeiro;
+
+        while (atual != null) {
+            sb.append(atual.getInfo()); // Adiciona o valor do nó
+
+            if (atual.getInicio() != null) {
+                sb.append(", "); // Adiciona vírgula se ainda tiver mais nós
+            }
+
+            atual = atual.getInicio();
+        }
+
+        return sb.toString(); // Retorna a string completa com os dados da lista
+    }
+}
