@@ -1,11 +1,15 @@
-//CLASSE COM METODOS EXTRAS - Estudo para prova 2
-
 import java.util.Objects;
 
+/**
+ * Classe que representa uma árvore n-ária genérica com número variável de filhos,
+ * utilizando os ponteiros 'primeiro' (primeiro filho) e 'proximo' (próximo irmão).
+ *
+ * @param <T> tipo dos dados armazenados na árvore
+ */
 public class Arvore<T> {
     private NoArvore<T> raiz;
 
-    // Construtor padrão. Inicializa a árvore como vazia (sem raiz).
+    //Construtor padrão. Inicializa a árvore como vazia (sem raiz).
     public Arvore() {
         this.raiz = null;
     }
@@ -14,31 +18,35 @@ public class Arvore<T> {
         this.raiz = raiz;
     }
 
-    // Retorna a representação textual da árvore completa.
+    public NoArvore<T> getRaiz() {
+        return raiz;
+    }
+    public void setRaiz(NoArvore<T> raiz) {
+        this.raiz = raiz;
+    }
+
+    //Retorna a representação textual da árvore completa.
     @Override
     public String toString() {
-        if (raiz == null)
-            return " ";
+        if (raiz == null) return " ";
         return obterRepresentacaoTextual(raiz);
     }
 
-    // Esse método é público e chama a versão recursiva privada.
+    //Esse método é público e chama a versão recursiva privada.
     public boolean pertence(T valor) {
-        if (raiz == null)
-            return false;
+        if (raiz == null) return false;
         return pertence(raiz, valor);
     }
 
-    // Percorre a árvore em profundidade a partir de um nó.
+    //Percorre a árvore em profundidade a partir de um nó.
     private boolean pertence(NoArvore<T> no, T valor) {
         if (Objects.equals(no.getInfo(), valor)) {
-            return true;
-        }
+        return true;
+    }
 
         NoArvore<T> p = no.getPrimeiro();
         while (p != null) {
-            if (pertence(p, valor))
-                return true;
+            if (pertence(p, valor)) return true;
             p = p.getProximo();
         }
 
@@ -46,7 +54,7 @@ public class Arvore<T> {
     }
 
     /**
-     * Gera uma representação textual da árvore no formato:
+     * Gera uma representação textual da árvore no formato: 
      * <raiz <filho1> <filho2> ... <filhoN>>
      *
      * @param no nó a ser processado
@@ -64,124 +72,22 @@ public class Arvore<T> {
 
         s.append(">");
         return s.toString();
-    }
+    } 
 
     public int contarNos() {
         return contarNos(raiz);
     }
 
-    // Soma 1 para o nó atual e soma a contagem dos filhos.
+    //Soma 1 para o nó atual e soma a contagem dos filhos.
     private int contarNos(NoArvore<T> no) {
-        if (no == null)
-            return 0;
+        if (no == null) return 0;
 
         int total = 1; // conta o próprio nó
         NoArvore<T> p = no.getPrimeiro();
         while (p != null) {
             total += contarNos(p); // soma os filhos
-            p = p.getProximo(); // vai para o próximo irmão
+            p = p.getProximo();    // vai para o próximo irmão
         }
         return total;
-    }
-
-    public NoArvore<T> getRaiz() {
-        return raiz;
-    }
-
-    public void setRaiz(NoArvore<T> raiz) {
-        this.raiz = raiz;
-    }
-
-    ///////////////////////////////////////////////////////////////
-    // EXTRAS:
-    // -Excluir nó
-    // -Contar folhas arvore n aria
-    // -Iserir filho no começo
-    
-    // EXCLUIR NOS
-    public boolean excluirNo(T valor) {
-        if (raiz == null)
-            return false;
-
-        // Se a raiz for o valor a excluir
-        if (Objects.equals(raiz.getInfo(), valor)) {
-            raiz = null;
-            return true;
-        }
-        // Chama o método recursivo para procurar e excluir
-        return excluirNo(raiz, valor);
-    }
-
-    private boolean excluirNo(NoArvore<T> no, T valor) {
-        NoArvore<T> filho = no.getPrimeiro();
-        NoArvore<T> anterior = null;
-
-        while (filho != null) {
-            // Se encontrou o nó que deve ser removido
-            if (Objects.equals(filho.getInfo(), valor)) {
-                if (anterior == null) {
-                    // O filho a ser removido é o primeiro filho
-                    no.setPrimeiro(filho.getProximo());
-                } else {
-                    // O filho a ser removido está no meio ou fim
-                    anterior.setProximo(filho.getProximo());
-                }
-                return true;
-            }
-
-            // Continua procurando entre os irmãos
-            if (excluirNo(filho, valor))
-                return true;
-
-            anterior = filho;
-            filho = filho.getProximo();
-        }
-        return false;
-    }
-
-    // CONTAR FOLHAS
-    public int contarFolhas() {
-        return contarFolhas(raiz);
-    }
-
-    private int contarFolhas(NoArvore<T> no) {
-        if (no == null)
-            return 0;
-
-        // Se o nó é uma folha
-        if (no.getPrimeiro() == null)
-            return 1;
-
-        int total = 0;
-        NoArvore<T> filho = no.getPrimeiro();
-        while (filho != null) {
-            total += contarFolhas(filho);
-            filho = filho.getProximo();
-        }
-        return total;
-    }
-
-    // IMPRIMIR HIERARQUICA
-    public void imprimirHierarquia() {
-        imprimirHierarquia(raiz, 0);
-    }
-
-    private void imprimirHierarquia(NoArvore<T> no, int nivel) {
-        if (no == null)
-            return;
-
-        // Imprime o recuo de acordo com o nível
-        for (int i = 0; i < nivel; i++) {
-            System.out.print("  "); // dois espaços por nível
-        }
-
-        System.out.println(no.getInfo());
-
-        // Chama recursivamente para os filhos
-        NoArvore<T> filho = no.getPrimeiro();
-        while (filho != null) {
-            imprimirHierarquia(filho, nivel + 1);
-            filho = filho.getProximo();
-        }
-    }
+    }   
 }
