@@ -1,0 +1,59 @@
+//antiga ARvoreBinaria
+abstract class ArvoreBinariaAbstract<T> {
+    protected NoArvoreBinaria<T> raiz;
+
+    public ArvoreBinariaAbstract(){
+        this.raiz=raiz;
+    }
+
+    protected void setRaiz(NoArvoreBinaria<T> raiz){
+        this.raiz=raiz;
+    }
+    
+    public NoArvoreBinaria<T> getRaiz() {
+        return raiz;
+    }
+
+    //ABSTRACT BUSCAR
+    public abstract NoArvoreBinaria<T> buscar(T valor);
+
+    //PERTENCE
+    public boolean pertence(T valor){
+        return buscar(valor) != null;
+    }
+    
+    public boolean estaVazia() {
+        return raiz == null;
+    }
+
+    // TO STRING PRE ORDEM 
+    public String arvorePreOrdem() {
+        return arvorePreOrdem(raiz);
+    }
+    private String arvorePreOrdem(NoArvoreBinaria<T> no) {
+        if (no == null) {
+            return "<>";
+        }
+        return "<" + no.getInfo() + arvorePreOrdem(no.getEsquerda()) +
+                arvorePreOrdem(no.getDireita()) + ">";
+    }
+
+    // CONTAR NOS
+    public int contarNos() {
+        return contarNos(raiz);
+    }
+    private int contarNos(NoArvoreBinaria<T> no) {
+        if (no == null) {
+            return 0;
+        }
+        return 1 + contarNos(no.getEsquerda()) + contarNos(no.getDireita());
+    }
+
+    //TO STRING P IMPRIMIR EM ORDEM
+    @Override
+    public String toString() {
+        return arvorePreOrdem();
+    }
+
+    
+}
