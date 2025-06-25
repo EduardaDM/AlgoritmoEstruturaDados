@@ -1,0 +1,48 @@
+import org.junit.*;
+
+public class ListaGenericaTeste {
+    
+    public void teste01(){
+        ListaEstatica<Integer> lista = new ListaEstatica<>();
+        lista.inserir(5);
+        lista.inserir(10);
+        lista.inserir(15);
+        lista.inserir(20);
+        lista.inverter();
+        String valores = "20/15/10/5";
+        Assert.assertEquals(valores, lista.toString());
+    }
+
+    public void teste02(){
+        ListaEstatica<Integer> lista = new ListaEstatica<>();
+        lista.inserir(5);
+        lista.inserir(10);
+        lista.inserir(15);
+        lista.inserir(20);
+        lista.inserir(20);
+        lista.inverter();
+        String valores = "20/n15/n10/n5/n";
+        Assert.assertEquals(valores, lista.toString());
+    }
+
+    public void testePessoa(){
+        ListaEstatica<Pessoa> pessoas = new ListaEstatica<>();
+        pessoas.inserir(new Pessoa("P1", 10));
+        Pessoa p = new Pessoa("P2", 20);
+        pessoas.inserir(p);
+        pessoas.inserir(new Pessoa("P3", 30));
+
+        String dados =  "Pessoa [nome=P1, idade=10]\n"+
+                        "Pessoa [nome=P2, idade=20]\\n"+
+                        "Pessoa [nome=P3, idade=30]\n";
+        Assert.assertEquals(pessoas.toString(),dados);
+
+        int pBusca = pessoas.buscar(p);
+        Assert.assertEquals(1,pBusca);
+        
+        pessoas.retirar(p);
+        dados = "Pessoa [nome=P1, idade=10]\n"+
+                "Pessoa [nome=P2, idade=30]\\n";
+                Assert.assertEquals(pessoas.toString(), dados);
+    }
+}
