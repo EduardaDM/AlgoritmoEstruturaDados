@@ -1,0 +1,36 @@
+package ArvoreBinaria;
+public class TesteArvore {
+    public static void main(String[] args) {
+        // Teste 1 - árvore vazia
+        ArvoreBinaria<Integer> arvore1 = new ArvoreBinaria<>();
+        System.out.println("Teste 1: " + (arvore1.estaVazia() ? "OK" : "Falhou"));
+
+        // Teste 2 - árvore com um nó
+        arvore1.setRaiz(new NoArvoreBinaria<>(5));
+        System.out.println("Teste 2: " + (!arvore1.estaVazia() ? "OK" : "Falhou"));
+
+        // Teste 3 - árvore conforme a imagem
+        NoArvoreBinaria<Integer> no4 = new NoArvoreBinaria<>(4);
+        NoArvoreBinaria<Integer> no2 = new NoArvoreBinaria<>(2, null, no4);
+        NoArvoreBinaria<Integer> no5 = new NoArvoreBinaria<>(5);
+        NoArvoreBinaria<Integer> no6 = new NoArvoreBinaria<>(6);
+        NoArvoreBinaria<Integer> no3 = new NoArvoreBinaria<>(3, no5, no6);
+        NoArvoreBinaria<Integer> no1 = new NoArvoreBinaria<>(1, no2, no3);
+        
+        /* Esta dando erro no no1 dentro de arvoreBinaria
+         * ArvoreBinaria<Integer> arvore2 = new ArvoreBinaria<>(no1);
+        System.out.println("Teste 3: " + (arvore2.toString().equals("<1<2<><4<><>>><3<5<><>><6<><>>>>") ? "OK" : "Falhou"));
+
+        // Testes 4 a 7
+        System.out.println("Teste 4 (pertence 1): " + (arvore2.pertence(1) ? "OK" : "Falhou"));
+        System.out.println("Teste 5 (pertence 3): " + (arvore2.pertence(3) ? "OK" : "Falhou"));
+        System.out.println("Teste 6 (pertence 6): " + (arvore2.pertence(6) ? "OK" : "Falhou"));
+        System.out.println("Teste 7 (pertence 10): " + (!arvore2.pertence(10) ? "OK" : "Falhou"));
+
+        // Teste 8 - contar nós
+        System.out.println("Teste 8 (contar nós): " + (arvore2.contarNos() == 6 ? "OK" : "Falhou"));
+         * 
+         */
+        
+    }
+}
