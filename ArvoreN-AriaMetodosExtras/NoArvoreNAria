@@ -1,0 +1,60 @@
+public class NoArvore<T> {
+    private int info;
+    private NoArvore<T> primeiro; // primeiro filho
+    private NoArvore<T> proximo;  // próximo irmão
+
+    public NoArvore(int info) {
+        this.info = info;
+        this.primeiro = null;
+        this.proximo = null;
+    }
+
+    public NoArvore(int info, NoArvore<T> primeiro, NoArvore<T> proximo) {
+        this.info = info;
+        this.primeiro = primeiro;
+        this.proximo = proximo;
+    }
+
+    public int getInfo() {
+        return info;
+    }
+
+    public void setInfo(int info) {
+        this.info = info;
+    }
+
+    public NoArvore<T> getPrimeiro() {
+        return primeiro;
+    }
+
+    public void setPrimeiro(NoArvore<T> primeiro) {
+        this.primeiro = primeiro;
+    }
+
+    public NoArvore<T> getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(NoArvore<T> proximo) {
+        this.proximo = proximo;
+    }
+
+    // Insere o novo filho no início da lista de filhos
+    public void inserirFilhoNoComeco(NoArvore<T> novoFilho) {
+        novoFilho.setProximo(this.primeiro);
+        this.primeiro = novoFilho;
+    }
+
+    // Insere o novo filho no final da lista de filhos
+    public void inserirFilhoNoFinal(NoArvore<T> novoFilho) {
+        if (this.primeiro == null) {
+            this.primeiro = novoFilho;
+        } else {
+            NoArvore<T> atual = this.primeiro;
+            while (atual.getProximo() != null) {
+                atual = atual.getProximo();
+            }
+            atual.setProximo(novoFilho);
+        }
+    }
+}
