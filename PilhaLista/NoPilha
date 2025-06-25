@@ -1,0 +1,37 @@
+//a classe No na Pilha é utilizada para implementação da Lista Encadeada
+
+public class No<T> {
+    private T info;
+    private No<T> anterior;
+    private No<T> proximo;
+
+    public No (T info) {
+        this.info = info;
+        this.anterior = null;
+        this.proximo = null;
+    }
+
+    public void setInfo (T info) {
+        this.info = info;
+    }
+
+    public T getInfo () {
+        return info;
+    }
+
+    public No<T> getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(No<T> anterior) {
+        this.anterior = anterior;
+    }
+
+    public No<T> getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(No<T> proximo) {
+        this.proximo = proximo;
+    }    
+}
