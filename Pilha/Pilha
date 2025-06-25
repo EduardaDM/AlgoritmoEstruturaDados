@@ -1,0 +1,90 @@
+public class Pilha<T> {
+    private No<T> primeiro; //primeiro nó da pilha
+    private No<T> ultimo; //ultimo nó da pilha
+
+    public Pilha () {
+        this.primeiro = null;
+        this.ultimo = null;
+    }
+
+    public void setPrimeiro (No<T> primeiro) {
+        this.primeiro = primeiro;
+    }
+
+    public No<T> getPrimeiro () {
+        return primeiro;
+    }
+
+    public void setUltimo(No<T> ultimo) {
+        this.ultimo = ultimo;
+    }
+
+
+    public No<T> getUltimo() {
+        return ultimo;
+    }
+
+    public boolean isEmpty () {
+        return primeiro == null && ultimo == null;
+    }
+
+    public void empilhar (T info) {
+        No<T> novo = new No<T>(info);
+
+        if (isEmpty()) {
+            primeiro = novo;
+            ultimo = novo;
+        } else {
+            novo.setAnterior(ultimo);
+            ultimo.setProximo(novo);
+            ultimo = novo;
+        }
+    }
+
+    public No<T> removerUm () {
+        No<T> retornoDoMétodo = ultimo;
+
+        ultimo = ultimo.getAnterior();
+
+        if (ultimo != null) {
+            ultimo.setProximo(null);
+        }
+        return retornoDoMétodo;
+    }
+
+    public No<T> retornarUltimo () {
+        return ultimo;
+    }
+
+    public String exibirDoUltimo () {
+        StringBuilder sb = new StringBuilder();
+
+        No<T> noAtual = ultimo;
+
+        while (noAtual != null) {
+            if (noAtual.getAnterior() != null) {
+                sb.append(noAtual.getInfo()).append(" <-> ");
+            } else {
+                sb.append(noAtual.getInfo());
+            }
+            noAtual = noAtual.getAnterior();
+        }
+
+        return sb.toString();
+    }
+
+    public String exibirDoInicio () {
+        StringBuilder sb = new StringBuilder();
+        No<T> noAtual = primeiro;
+
+        while (noAtual != null) {
+            if (noAtual.getProximo() != null) {
+                sb.append(noAtual.getInfo()).append(" <-> ");
+            } else {
+                sb.append(noAtual.getInfo());
+            }
+            noAtual = noAtual.getProximo();
+        }
+        return sb.toString();
+    }
+}
