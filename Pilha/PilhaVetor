@@ -1,0 +1,121 @@
+import ExeptionsPersonalizadas.PilhaCheiaException;
+import ExeptionsPersonalizadas.PilhaVaziaException;
+
+public class PilhaVetor<T> implements Pilha<T>{
+
+    private int limite;
+    private int tamanho;
+    private Object info[];
+
+    public PilhaVetor(int limite) {
+        this.info = new Object[limite];
+        this.tamanho = 0;
+        this.limite = limite;
+    }
+
+    public Object[] getInfo() {
+        return info;
+    }
+
+    public void setInfo(Object[] info) {
+        this.info = info;
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
+    public void setLimite(int limite) {
+        this.limite = limite;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    //push insere um valor na pilha == inserirValor
+    @Override
+    public void push(T info) {
+        if (limite == tamanho) {
+            throw new PilhaCheiaException("Capacidade esgotada da pilha");
+        }
+        // info[tamanho] = valor;
+        // tamanho++;
+
+        this.info[tamanho++] = info;
+        //é utilizado o this pois a variavel no parametro é chamada info também 
+        //se a variavel no parametro fosse "valor" então não precisaria do this
+    }
+
+    //peek lê o primeiro elemento, não faz mais nada == get topo da pilha
+    @Override
+    @SuppressWarnings("unchecked")
+    public T peek() {
+        if (estaVazia()) {
+            throw new PilhaVaziaException("Pilha está vazia");
+        }
+        return (T) info[tamanho - 1];
+    }
+
+    //pop retira o primeiro elemento da pilha == removerElemento
+    @Override
+    @SuppressWarnings("unchecked")
+    public T pop() {
+    
+        //verificação se está vazia a pilha, pois se estiver, não terá o que retirar
+        if (estaVazia()) {
+            throw new PilhaVaziaException("Pilha vazia");
+        }
+        //T valor = (T) info[tamanho]; // Acessa o valor no topo da pilha
+        T valor = peek();
+        info[tamanho] = null; // Remove a referência do valor
+        tamanho--; // Diminui o tamanho da pilha
+        return valor; // Retorna o valor armazenado
+    }
+
+    @Override
+    public boolean estaVazia() {
+        return tamanho == 0;
+    }
+
+    @Override
+    public void liberar() {
+        info = new Object[limite];
+        tamanho = 0;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void concatenar(PilhaVetor<T> p) {
+        PilhaVetor<T> pilhaAuxiliar = new PilhaVetor<>(p.info.length);
+
+        //esse laço de repetição retirava o valor contido na pilha de concatenação, 
+        //com o for ela permanece com seus valores
+        //while(!p.estaVazia()){
+        //   pilhaAuxiliar.push(p.pop());
+        //}
+
+        for(int i= p.tamanho-1; i >=0; i--){
+            pilhaAuxiliar.push((T)p.info[i]);
+        }
+
+        while(!pilhaAuxiliar.estaVazia()){
+            this.push(pilhaAuxiliar.pop());
+        }
+    }
+
+    public String toString() {
+        String s = "";
+
+        for (int i = tamanho-1; i >= 0; i--) {
+            s += info[i];
+            if (i != 0) {
+                s += ","; //se tiver mais de um valor ele insere a vírgula
+            }
+        }
+        return s;
+    }
+}
