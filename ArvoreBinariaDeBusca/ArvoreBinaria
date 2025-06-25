@@ -1,0 +1,22 @@
+public class ArvoreBinaria <T extends Comparable<T>> extends ArvoreBinariaAbstract<T>{
+    
+    // Implementa a busca binária recursiva
+    @Override
+    public NoArvoreBinaria<T> buscar(T valor) {
+        return buscar(raiz, valor);
+    }
+
+    private NoArvoreBinaria<T> buscar(NoArvoreBinaria<T> no, T valor) {
+        if (no == null) return null;
+        if (valor.compareTo(no.getInfo()) == 0) return no;
+        if (valor.compareTo(no.getInfo()) < 0)
+            return buscar(no.getEsquerda(), valor);
+        else
+            return buscar(no.getDireita(), valor);
+    } 
+
+    public void setRaiz(NoArvoreBinaria<T> raiz) {
+        super.setRaiz(raiz);
+    }
+
+}
