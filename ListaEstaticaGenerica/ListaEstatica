@@ -1,0 +1,107 @@
+import java.util.Arrays;
+
+public class ListaEstatica<T> {
+    private Object[] info;
+    private int tamanho;
+
+    public ListaEstatica() {
+        this.info = new Object[10];
+        this.tamanho = 0;
+    }
+
+    private void redimensionar() {
+        //array.copyOf serve para copiar elementos para um novo array maior
+        info = Arrays.copyOf(info, info.length * 2);
+    }
+
+    public void inserir(T valor) {
+        if (tamanho == info.length) {
+            redimensionar();
+        }
+        //info[tamanho] = valor;
+        //tamanho ++
+        //se usasse ++tamanho seria incrementado antes do valor ser inserido na lista
+        info[tamanho++] = valor;
+        //forma compacta de inserir um elemento array e atualizar o tamanho
+    }
+
+    public void exibir() {
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print(info[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public int buscar(T valor) {
+        for (int i = 0; i < tamanho; i++) {
+            if (info[i].equals(valor)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void retirar(T valor) {
+        int pos = buscar(valor);
+        if (pos != -1) {
+            for (int i = pos; i < tamanho - 1; i++) {
+                info[i] = info[i + 1];
+            }
+            tamanho--;
+        }
+    }
+
+    public void liberar() {
+        info = new Object[10]; //object
+        tamanho = 0;
+    }
+
+    public T obterElemento(int posicao) {
+        if (posicao < 0 || posicao >= tamanho) {
+            throw new IndexOutOfBoundsException("Posição inválida");
+        }
+        // forma de retornar a posição dentro do array de vetor
+        return (T) info[posicao];
+    }
+
+    public boolean estaVazia() {
+        return tamanho == 0;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public String toString() {
+        // retorna a string formatada com as informações necessárias
+        return Arrays.toString(Arrays.copyOf(info, tamanho));
+    }
+
+    public void inverter() {
+        // percorre metade da lista para evitar que os elementos voltem ao estado original
+        for (int i = 0; i < tamanho / 2; i++) {
+            Object temp = info[i]; //guarda temporariamente o valor do elemento da posição i
+            info[i] = info[tamanho - 1 - i]; // o elemento da posição i é substituido pelo oposto na lista
+            info[tamanho - 1 - i] = temp; // o valor armazenado na variavel temporaria e colocado na posição oposta
+        }
+    }
+
+    public static void main(String[] args) {
+        ListaEstatica<Integer> lista = new ListaEstatica<>();
+        lista.inserir(50);
+        lista.inserir(-15);
+        lista.inserir(12);
+        lista.inserir(28);
+        lista.inserir(91);
+        lista.inserir(198);
+        lista.inserir(-55);
+
+        System.out.println("Lista original:");
+        lista.exibir();
+
+        lista.inverter();
+
+        System.out.println("Lista invertida:");
+        lista.exibir();
+    }
+}
