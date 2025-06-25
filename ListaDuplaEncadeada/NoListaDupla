@@ -1,0 +1,34 @@
+/**
+ *
+ * @author eduarda mazureck
+ */
+
+public class NoListaDupla<T> {
+    private T info;
+    private NoListaDupla<T> inicio; // representa o próximo nó
+    private NoListaDupla<T> fim;    // representa o nó anterior
+    
+    public void setInfo(T info) {
+        this.info = info;
+    }
+    
+    public T getInfo() {
+        return info;
+    }
+    
+    public void setInicio(NoListaDupla<T> proximo) {
+        this.inicio = proximo;  // Corrigido: atribui ao próximo
+    }
+    
+    public NoListaDupla<T> getInicio() {
+        return inicio;
+    }
+    
+    public void setFim(NoListaDupla<T> anterior) {
+        this.fim = anterior;    // Corrigido: atribui ao anterior
+    }
+    
+    public NoListaDupla<T> getFim() {
+        return fim;
+    }
+}
