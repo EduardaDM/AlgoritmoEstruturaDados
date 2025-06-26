@@ -1,0 +1,31 @@
+import java.util.Arrays;
+
+public class TesteOrdenacao {
+    public static void main(String[] args) {
+        Integer[] dados = {70, 2, 88, 15, 90, 30};
+
+        // Caso 1: Bolha
+        OrdenacaoBolha<Integer> bolha = new OrdenacaoBolha<>();
+        bolha.setInfo(dados.clone());
+        bolha.ordenar();
+        System.out.println("Bolha: " + Arrays.toString(bolha.getInfo()));
+
+        // Caso 2: Bolha Otimizada
+        OrdenacaoBolhaOtimizada<Integer> bolhaOt = new OrdenacaoBolhaOtimizada<>();
+        bolhaOt.setInfo(dados.clone());
+        bolhaOt.ordenar();
+        System.out.println("Bolha Otimizada: " + Arrays.toString(bolhaOt.getInfo()));
+
+        // Caso 3: QuickSort
+        OrdenacaoQuickSort<Integer> quick = new OrdenacaoQuickSort<>();
+        quick.setInfo(dados.clone());
+        quick.ordenar();
+        System.out.println("QuickSort: " + Arrays.toString(quick.getInfo()));
+
+        // Caso 4: MergeSort
+        OrdenacaoMergeSort<Integer> merge = new OrdenacaoMergeSort<>();
+        merge.setInfo(dados.clone());
+        merge.ordenar();
+        System.out.println("MergeSort: " + Arrays.toString(merge.getInfo()));
+    }
+}
