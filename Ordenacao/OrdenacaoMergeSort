@@ -1,0 +1,36 @@
+public class OrdenacaoMergeSort<T extends Comparable<T>> extends OrdenacaoAbstract<T> {
+    @Override
+    public void ordenar() {
+        mergeSort(0, info.length - 1);
+    }
+
+    private void mergeSort(int inicio, int fim) {
+        if (inicio < fim) {
+            int meio = (inicio + fim) / 2;
+            mergeSort(inicio, meio);
+            mergeSort(meio + 1, fim);
+            merge(inicio, fim, meio);
+        }
+    }
+
+    private void merge(int inicio, int fim, int meio) {
+        T[] aux = info.clone();
+        int i = inicio, j = meio + 1, k = inicio;
+
+        while (i <= meio && j <= fim) {
+            if (aux[i].compareTo(aux[j]) <= 0) {
+                info[k++] = aux[i++];
+            } else {
+                info[k++] = aux[j++];
+            }
+        }
+
+        while (i <= meio) {
+            info[k++] = aux[i++];
+        }
+
+        while (j <= fim) {
+            info[k++] = aux[j++];
+        }
+    }
+}
