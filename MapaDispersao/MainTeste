@@ -1,0 +1,19 @@
+import java.time.LocalDate;
+
+public class MainTeste {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static void main(String[] args) {
+
+        Aluno lana = new Aluno(2005, "Lana DelRey", LocalDate.of(2005, 05, 19));
+        Aluno leidi = new Aluno(2009, "Leidi DelRey", LocalDate.of(2009, 01, 28));
+        MapaHash map = new MapaHash<>(11);
+        map.insert(2005, lana);
+        map.insert(2009, leidi);
+        MapaHash newMap = map.clonar();
+        Aluno angela = new Aluno(1970, "Angela", LocalDate.of(2009, 01, 28));
+        newMap.insert(1970, angela);
+        map.redimencionar();
+
+        System.out.println(map.showIt());
+    }
+}
