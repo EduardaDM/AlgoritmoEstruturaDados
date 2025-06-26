@@ -1,0 +1,23 @@
+public abstract class OrdenacaoAbstract<T extends Comparable<T>> {
+    protected T[] info;
+
+    // Getter para o array de dados
+    public T[] getInfo() {
+        return info;
+    }
+
+    // Setter para o array de dados
+    public void setInfo(T[] info) {
+        this.info = info;
+    }
+
+    // Método utilitário para trocar dois elementos do array info
+    protected void trocar(int a, int b) {
+        T temp = info[a];
+        info[a] = info[b];
+        info[b] = temp;
+    }
+
+    // Método abstrato para ordenar (a ser implementado nas subclasses)
+    public abstract void ordenar();
+}
