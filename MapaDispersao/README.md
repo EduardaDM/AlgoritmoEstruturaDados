@@ -6,8 +6,6 @@ Questão 1 - sobre Mapas de Dispersão com Tratamento de Colisões por Encadeame
 
 > Implemente um mapa de dispersão que utilize tratamento de colisões por endereçamento separado (listas encadeadas), conforme diagrama.
 
-![Diagrama MapaDispersao](image.png)
-
 • O construtor MapaDispersao(int) deve criar uma mapa com vetor encapsulado igual ao fornecido como
 argumento;
 • O método calcularHash(int) deve obter o hash para uma determinada chave de busca. Utilizar a função de resto
